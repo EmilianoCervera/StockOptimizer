@@ -1,0 +1,2 @@
+# StockOptimizer
+Optimízador de stock 
