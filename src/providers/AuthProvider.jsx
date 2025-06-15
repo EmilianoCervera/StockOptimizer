@@ -5,6 +5,11 @@ import { AuthContext } from "../contexts/AuthContext";
 const AUTH_USER = import.meta.env.VITE_AUTH_USER;
 const AUTH_PASSWORD = import.meta.env.VITE_AUTH_PASSWORD;
 
+// Agrega estos logs para debug
+console.log("VITE_AUTH_USER:", AUTH_USER);
+console.log("VITE_AUTH_PASSWORD:", AUTH_PASSWORD);
+
+
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialAuthState);
 
