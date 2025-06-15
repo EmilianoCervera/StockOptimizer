@@ -8,38 +8,29 @@ import {
   IconButton,
   Typography,
   TextField,
+  Tooltip,
+  Fade,
 } from "@mui/material";
-import { Add, Remove } from "@mui/icons-material";
+import { Add, Remove, ArrowBack } from "@mui/icons-material";
 import { DateTimeDisplay } from "./DateTimeDisplay";
 import { AuthContext } from "../contexts/AuthContext";
 
-// Componente principal para optimizar el stock de una sucursal
-// Props:
-// - branchName: nombre de la sucursal
-// - targetStock: lista de productos y objetivos de stock
-// - onBack: función para volver a la pantalla de sucursales
 export const StockOptimizer = ({ branchName, targetStock, onBack }) => {
-  // Estado para el stock actual de cada producto
   const [currentStock, setCurrentStock] = useState(
     targetStock.map((product) => ({ ...product, current: 0 }))
   );
-  // Estado para el nombre del pedido
   const [orderName, setOrderName] = useState("");
-  // Estado para el historial de pedidos (persistente por sucursal)
   const [savedOrders, setSavedOrders] = useState(() => {
     const saved = localStorage.getItem(`orders_${branchName}`);
     return saved ? JSON.parse(saved) : [];
   });
 
-  // Contexto de autenticación para mostrar el usuario actual
   const { user } = useContext(AuthContext);
 
-  // Guarda el historial de pedidos en localStorage cada vez que cambia
   useEffect(() => {
     localStorage.setItem(`orders_${branchName}`, JSON.stringify(savedOrders));
   }, [savedOrders, branchName]);
 
-  // Si cambia la sucursal o la lista de productos, resetea historial y stock
   useEffect(() => {
     const saved = localStorage.getItem(`orders_${branchName}`);
     setSavedOrders(saved ? JSON.parse(saved) : []);
@@ -47,7 +38,6 @@ export const StockOptimizer = ({ branchName, targetStock, onBack }) => {
     setOrderName("");
   }, [branchName, targetStock]);
 
-  // Actualiza la cantidad de un producto (sumar/restar)
   const handleUpdateQuantity = (index, delta) => {
     setCurrentStock((prev) =>
       prev.map((product, i) =>
@@ -58,14 +48,12 @@ export const StockOptimizer = ({ branchName, targetStock, onBack }) => {
     );
   };
 
-  // Calcula el pedido necesario para cada producto
   const calculateRestock = () =>
     currentStock.map((product) => ({
       name: product.name,
       required: Math.max(product.target - product.current, 0),
     }));
 
-  // Maneja el envío del pedido
   const handleSubmit = () => {
     if (!orderName.trim()) {
       alert("Por favor, ingrese un nombre para el pedido.");
@@ -79,14 +67,10 @@ export const StockOptimizer = ({ branchName, targetStock, onBack }) => {
       details: restockList,
     };
 
-    // Agrega el nuevo pedido al historial (y se guarda en localStorage por el useEffect)
     setSavedOrders((prev) => [...prev, newOrder]);
-
-    // Reinicia el estado del stock y el nombre del pedido
     setCurrentStock(targetStock.map((product) => ({ ...product, current: 0 })));
     setOrderName("");
 
-    // Muestra un resumen del pedido generado
     alert(
       `Pedido por "${orderName}" generado:\n` +
         restockList
@@ -105,9 +89,37 @@ export const StockOptimizer = ({ branchName, targetStock, onBack }) => {
       {/* Botón para volver a la pantalla de sucursales alineado a la derecha */}
       {onBack && (
         <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
-          <Button variant="outlined" onClick={onBack}>
-            Volver a sucursales
-          </Button>
+          <Tooltip
+            title="Volver a sucursales"
+            arrow
+            TransitionComponent={Fade}
+            TransitionProps={{ timeout: 300 }}
+          >
+            <Button
+              variant="outlined"
+              onClick={onBack}
+              sx={{
+                minWidth: 0,
+                width: 40,
+                height: 40,
+                padding: 0,
+                borderRadius: "50%",
+                borderColor: "#1976d2",
+                color: "#1976d2",
+                background: "rgba(255,255,255,0.7)",
+                boxShadow: 1,
+                "&:hover": {
+                  borderColor: "#1565c0",
+                  background: "rgba(25, 118, 210, 0.1)",
+                  color: "#1565c0",
+                },
+                fontWeight: "bold",
+                fontSize: "1rem",
+              }}
+            >
+              <ArrowBack />
+            </Button>
+          </Tooltip>
         </Box>
       )}
       {/* Título con el nombre de la sucursal */}
@@ -194,7 +206,7 @@ export const StockOptimizer = ({ branchName, targetStock, onBack }) => {
       {/* Muestra el usuario autenticado */}
       <Typography variant="body2" color="text.secondary">
         {user
-          ? `${user.usuario.name} ${user.usuario.lastname}`
+          ? `${user.name} ${user.lastname}`
           : "No autenticado"}
       </Typography>
     </Box>

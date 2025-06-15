@@ -74,10 +74,23 @@ export const BranchesScreen = () => {
       >
         Selecciona una sucursal
       </Typography>
-      <Box sx={{ width: "100%", maxWidth: 500, mb: 3 }}>
-        <ButtonL />
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: 500,
+          mb: 3,
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <ButtonL small />
       </Box>
-      <Grid container spacing={3} sx={{ maxWidth: 1200, mx: "auto", pb: 4 }}>
+      <Grid
+        container
+        spacing={3}
+        sx={{ maxWidth: 1200, mx: "auto", pb: 4 }}
+        justifyContent="center"
+      >
         {branches.map((branch, idx) => (
           <Grid item xs={12} sm={6} md={4} key={branch.name}>
             <ButtonBase
@@ -103,7 +116,7 @@ export const BranchesScreen = () => {
                   transition: "box-shadow 0.2s",
                   "&:hover": { boxShadow: 6 },
                   mb: { xs: 2, sm: 0 },
-                  mx: "auto",
+                  // mx: "auto", // Elimina esto para mejor centrado
                   background: "rgba(255,255,255,0.85)",
                 }}
               >

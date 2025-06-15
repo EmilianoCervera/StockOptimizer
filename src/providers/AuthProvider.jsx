@@ -13,9 +13,10 @@ export const AuthProvider = ({ children }) => {
       dispatch({ 
         type: "LOGIN", 
         payload: { 
-          usuario:{
+          user: {
             name: "Stock Optimizer",
-            lastname: "Admin",}
+            lastname: "Admin",
+          }
         } 
       });
     } else {
