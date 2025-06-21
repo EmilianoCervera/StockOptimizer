@@ -11,7 +11,7 @@ import {
   Tooltip,
   Fade,
 } from "@mui/material";
-import { Add, Remove, ArrowBack } from "@mui/icons-material";
+import { Add, Remove, ArrowBack, Delete } from "@mui/icons-material";
 import { DateTimeDisplay } from "./DateTimeDisplay";
 import { AuthContext } from "../contexts/AuthContext";
 
@@ -82,6 +82,11 @@ export const StockOptimizer = ({ branchName, targetStock, onBack }) => {
           )
           .join("\n")
     );
+  };
+
+  // Nueva función para eliminar un pedido del historial
+  const handleDeleteOrder = (index) => {
+    setSavedOrders((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -190,12 +195,40 @@ export const StockOptimizer = ({ branchName, targetStock, onBack }) => {
         </Typography>
         {savedOrders.length > 0 ? (
           savedOrders.map((order, index) => (
-            <DateTimeDisplay
+            <Box
               key={index}
-              dateTime={order.time}
-              orderDetails={order.details}
-              orderName={order.name}
-            />
+              sx={{
+                position: "relative",
+                mb: 2,
+                border: "1px solid #eee",
+                borderRadius: 2,
+                background: "#fafafa",
+                boxShadow: 1,
+                p: 2,
+              }}
+            >
+              {/* Botón eliminar en la esquina superior derecha */}
+              <IconButton
+                size="small"
+                onClick={() => handleDeleteOrder(index)}
+                sx={{
+                  position: "absolute",
+                  top: 4,
+                  right: 4,
+                  color: "#d32f2f",
+                  background: "#fff",
+                  "&:hover": { background: "#ffeaea" },
+                }}
+                aria-label="Eliminar pedido"
+              >
+                <Delete fontSize="small" />
+              </IconButton>
+              <DateTimeDisplay
+                dateTime={order.time}
+                orderDetails={order.details}
+                orderName={order.name}
+              />
+            </Box>
           ))
         ) : (
           <Typography variant="body2" color="text.secondary">

@@ -10,7 +10,7 @@ export const NavBar = () => {
         top: 0,
         boxShadow: 3,
         zIndex: 1201,
-        bgcolor: "#d32f2f",
+        bgcolor: "primary.main",
       }}
     >
       <Toolbar

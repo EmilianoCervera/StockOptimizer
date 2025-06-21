@@ -7,16 +7,39 @@ const branches = [
   {
     name: "Option 1",
     image:
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+      "/public/solido1.jpg",
     products: [
-      { name: "Producto A", target: 10 },
-      { name: "Producto B", target: 15 },
+      { name: "Producto A", target: 6 },
+      { name: "Producto B", target: 16 },
+      { name: "Producto C", target: 7 },
+      { name: "Producto D", target: 12 },
+      { name: "Producto E", target: 1 },
+      { name: "Producto F", target: 3 },
+      { name: "Producto G", target: 25 },
+      { name: "Producto H", target: 20 },
+      { name: "Producto I", target: 1 },
+      { name: "Producto J", target: 3 },
+      { name: "Producto K", target: 3 },
+      { name: "Producto L", target: 3 },
+      { name: "Producto M", target: 3 },
+      { name: "Producto N", target: 20 },
+      { name: "Producto O", target: 1 },
+      { name: "Producto P", target: 8 },
+      { name: "Producto Q", target: 1 },
+      { name: "Producto R", target: 1 },
+      { name: "Producto S", target: 1 },
+      { name: "Producto T", target: 1 },
+      { name: "Producto U", target: 2 },
+      { name: "Producto V", target: 6 },
+      { name: "Producto W", target: 4 },
+      { name: "Producto X", target: 1 },
+      { name: "Producto Y", target: 15 }     
     ],
   },
   {
     name: "Option 2",
     image:
-      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
+      "/solido2.jpg",
     products: [
       { name: "Producto X", target: 8 },
       { name: "Producto Y", target: 12 },
@@ -52,7 +75,7 @@ export const BranchesScreen = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "flex-start",
-        backgroundImage: "url('/fondo2.jpg')",
+        backgroundImage: "url('/fondo6.gif')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -72,7 +95,7 @@ export const BranchesScreen = () => {
           px: 2,
         }}
       >
-        Selecciona una sucursal
+        Select an Optimizer
       </Typography>
       <Box
         sx={{

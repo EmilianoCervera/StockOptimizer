@@ -28,7 +28,7 @@ export const LoginPage = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundImage: "url('/fondo2.jpg')",
+          backgroundImage: "url('/fondo5.gif')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
